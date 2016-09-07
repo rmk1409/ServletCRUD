@@ -1,9 +1,6 @@
 package classes;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created by Roma on 07.09.2016.
@@ -49,5 +46,33 @@ public class PersonDao {
         }
 
         return status;
+    }
+
+    public static Person getPersonById(int id){
+        Connection connection = null;
+        Person result = null;
+
+        try {
+            connection = PersonDao.getConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM PERSON WHERE ID = ?");
+
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                result = new Person(resultSet.getString(3),resultSet.getString(4),resultSet.getString(2));
+                result.setId(resultSet.getInt(1));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
     }
 }

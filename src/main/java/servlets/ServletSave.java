@@ -17,14 +17,16 @@ import java.io.PrintWriter;
 @WebServlet("/ServletSave")
 public class ServletSave extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
+        response.setContentType("text/html; charset=utf-8");
+        request.setCharacterEncoding("utf-8");
 
         PrintWriter writer = response.getWriter();
 
         Person person = new Person(request.getParameter("userPassword"),request.getParameter("userCountry"),request.getParameter("userName"));
 
         int status = PersonDao.save(person);
-        request.getRequestDispatcher("index.html").include(request, response);
+
+        request.getRequestDispatcher("welcome.html").include(request,response);
         if (status>0){
             writer.print("<p>Record saved successfully</p>");
         }else {
@@ -34,8 +36,4 @@ public class ServletSave extends HttpServlet {
         writer.close();
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
 }
