@@ -105,15 +105,15 @@ public class PersonDao {
         return status;
     }
 
-    public static int delete(Person person) {
+    public static int delete(int id) {
         int status = 0;
         Connection connection = null;
 
         try {
             connection = PersonDao.getConnection();
-            PreparedStatement statement = connection.prepareStatement("DELETE FORM person WHERE id=?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM person WHERE id=?");
 
-            statement.setInt(1, person.getId());
+            statement.setInt(1, id);
             status = statement.executeUpdate();
 
         } catch (SQLException e) {

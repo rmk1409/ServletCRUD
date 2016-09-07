@@ -33,6 +33,14 @@ public class ServletView extends HttpServlet {
                 , person.getId(), person.getName(), person.getPassword(), person.getCountry(), person.getId(), person.getId())));
 
         writer.print("</table>");
+
+        //check msg
+        String msg = (String) request.getSession().getAttribute("msg");
+        if (msg != null){
+            writer.println(String.format("<br><b>%s</b>", msg));
+            request.getSession().removeAttribute("msg");
+        }
+
         writer.close();
     }
 }

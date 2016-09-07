@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS "person" (
   "country" varchar(30) DEFAULT NULL
 );
 
-INSERT into person(name, password, country) values ('Ivan', 'PassIvan', 'Rus');
-INSERT into person(name, password, country) values ('Rmk', 'PassRmk', 'Rus');
+INSERT into person(name, password, country) values ('Ivan', 'PassIvan', 'Russia');
+INSERT into person(name, password, country) values ('Rmk', 'PassRmk', 'Russia');
 INSERT into person(name, password, country) values ('Alex', 'PassAlex', 'USA');
 INSERT into person(name, password, country) values ('Sala', 'PassSala', 'Europe');
