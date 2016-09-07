@@ -27,6 +27,7 @@ public class ServletSave extends HttpServlet {
         int status = PersonDao.save(person);
 
         request.getRequestDispatcher("welcome.html").include(request,response);
+        writer.println("<h4>Create</h4>");
         if (status>0){
             writer.print("<p>Record saved successfully</p>");
         }else {

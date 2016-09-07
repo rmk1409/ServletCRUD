@@ -1,6 +1,8 @@
 package classes;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Roma on 07.09.2016.
@@ -22,7 +24,7 @@ public class PersonDao {
         return result;
     }
 
-    public static int save(Person person){
+    public static int save(Person person) {
         int status = 0;
 
         Connection connection = null;
@@ -48,7 +50,7 @@ public class PersonDao {
         return status;
     }
 
-    public static Person getPersonById(int id){
+    public static Person getPersonById(int id) {
         Connection connection = null;
         Person result = null;
 
@@ -58,8 +60,8 @@ public class PersonDao {
 
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
-                result = new Person(resultSet.getString(3),resultSet.getString(4),resultSet.getString(2));
+            if (resultSet.next()) {
+                result = new Person(resultSet.getString(3), resultSet.getString(4), resultSet.getString(2));
                 result.setId(resultSet.getInt(1));
             }
 
@@ -74,5 +76,83 @@ public class PersonDao {
         }
 
         return result;
+    }
+
+    public static int update(Person person) {
+        int status = 0;
+        Connection connection = null;
+
+        try {
+            connection = PersonDao.getConnection();
+            PreparedStatement statement = connection.prepareStatement("UPDATE person SET name=?,password=?,country=? where id=?");
+
+            statement.setString(1, person.getName());
+            statement.setString(2, person.getPassword());
+            statement.setString(3, person.getCountry());
+            statement.setInt(4, person.getId());
+
+            status = statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return status;
+    }
+
+    public static int delete(Person person) {
+        int status = 0;
+        Connection connection = null;
+
+        try {
+            connection = PersonDao.getConnection();
+            PreparedStatement statement = connection.prepareStatement("DELETE FORM person WHERE id=?");
+
+            statement.setInt(1, person.getId());
+            status = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return status;
+    }
+
+    public static List<Person> getAllPeople(){
+        List<Person> resultList = new ArrayList<Person>();
+        Connection connection = null;
+
+        try {
+            connection = PersonDao.getConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM PERSON");
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                Person currentPerson = new Person(resultSet.getString("password"), resultSet.getString("country"), resultSet.getString("name"));
+                currentPerson.setId(resultSet.getInt("id"));
+                resultList.add(currentPerson);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return resultList;
     }
 }

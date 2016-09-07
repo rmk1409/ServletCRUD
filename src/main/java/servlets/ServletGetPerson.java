@@ -20,6 +20,7 @@ public class ServletGetPerson extends HttpServlet {
         response.setContentType("text/html; charset=utf-8");
         PrintWriter writer = response.getWriter();
         request.getRequestDispatcher("welcome.html").include(request,response);
+        writer.println("<h4>Read</h4>");
 
         Integer id = Integer.parseInt(request.getParameter("id"));
         Person person = PersonDao.getPersonById(id);
@@ -39,6 +40,7 @@ public class ServletGetPerson extends HttpServlet {
         PrintWriter writer = response.getWriter();
         request.getRequestDispatcher("welcome.html").include(request,response);
 
+        writer.println("<h4>Read</h4>");
         writer.println("<form action='/ServletGetPerson' method='post'><b>id:</b><input type=number name='id'>");
         writer.println("<input type=submit name='Seach'></form>");
     }
