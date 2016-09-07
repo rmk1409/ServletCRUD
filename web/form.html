@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="ServletSave" method="post">
+    <table>
+        <tr>
+            <td><b>Name:</b></td>
+            <td><input type="text" name="userName"></td>
+        </tr>
+        <tr>
+            <td><b>Password:</b></td>
+            <td><input type="password" name="userPassword"></td>
+        </tr>
+        <tr>
+            <td><b>Country:</b></td>
+            <td><select name="userCountry" style="width: 150px">
+                <option>Rus</option>
+                <option>Europe</option>
+                <option>USA</option>
+                <option>Other</option>
+            </select></td>
+        </tr>
+        <tr><td colspan="2"><input type="submit" value="Send"></td></tr>
+    </table>
+</form>
+</body>
+</html>
