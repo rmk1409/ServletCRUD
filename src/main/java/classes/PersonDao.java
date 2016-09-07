@@ -1,3 +1,5 @@
+package classes;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,9 +13,12 @@ public class PersonDao {
         Connection result = null;
 
         try {
+            Class.forName("org.postgresql.Driver");
             result = DriverManager.getConnection("jdbc:postgresql://localhost/postgres", "postgres", "password");
         } catch (SQLException e) {
             System.out.println(e);
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 

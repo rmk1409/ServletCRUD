@@ -1,3 +1,8 @@
+package servlets;
+
+import classes.Person;
+import classes.PersonDao;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,4 +34,8 @@ public class ServletSave extends HttpServlet {
         writer.close();
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
 }
